@@ -24,22 +24,21 @@ const Store = ({ products }) => {
     setCategories(data.map((key) => key));
   };
 
-  const fetchCategoryProducts = async () => {
-    if (category != "All") {
-      const { data } = await commerce.products.list({
-        category_slug: [category],
-        active: 1,
-      });
-
-      setCategoryProducts(data);
-    }
-  };
-
   useEffect(() => {
     fetchCategories();
   }, []);
 
   useEffect(() => {
+    const fetchCategoryProducts = async () => {
+      if (category !== "All") {
+        const { data } = await commerce.products.list({
+          category_slug: [category],
+          active: 1,
+        });
+
+        setCategoryProducts(data);
+      }
+    };
     fetchCategoryProducts();
   }, [category]);
 

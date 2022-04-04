@@ -1,15 +1,11 @@
 import React from "react";
 import { FiFacebook, FiInstagram, FiTwitter } from "react-icons/fi";
 
-import { FooterOverlay, Newsletter } from "../../components";
 import { images } from "../../constants";
 import "./Footer.css";
 
 const Footer = () => (
   <div className="app__footer section__padding" id="footer">
-    {/* <FooterOverlay />
-    <Newsletter /> */}
-
     <div className="app__footer-links">
       <div className="app__footer-links_contact">
         <h1 className="app__footer-headtext">Contact Us</h1>

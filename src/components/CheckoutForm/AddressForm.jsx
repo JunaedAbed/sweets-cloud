@@ -41,15 +41,6 @@ const AddressForm = ({ checkoutToken, next }) => {
     label: `${sO.description} - (${sO.price.formatted_with_symbol})`,
   }));
 
-  const fetchShippingCountries = async (checkoutTokenId) => {
-    const { countries } = await commerce.services.localeListShippingCountries(
-      checkoutTokenId
-    );
-
-    setShippingCountries(countries);
-    setShippingCountry(Object.keys(countries)[0]);
-  };
-
   const fetchSubdivisions = async (countryCode) => {
     const { subdivisions } = await commerce.services.localeListSubdivisions(
       countryCode
@@ -59,23 +50,17 @@ const AddressForm = ({ checkoutToken, next }) => {
     setShippingDivision(Object.keys(subdivisions)[0]);
   };
 
-  const fetchShippingOptions = async (
-    checkoutTokenId,
-    country,
-    region = null
-  ) => {
-    const options = await commerce.checkout.getShippingOptions(
-      checkoutTokenId,
-      { country, region }
-    );
-
-    setShippingOptions(options);
-    setShippingOption(options[0].id);
-  };
-
   useEffect(() => {
+    const fetchShippingCountries = async (checkoutTokenId) => {
+      const { countries } = await commerce.services.localeListShippingCountries(
+        checkoutTokenId
+      );
+
+      setShippingCountries(countries);
+      setShippingCountry(Object.keys(countries)[0]);
+    };
     fetchShippingCountries(checkoutToken.id);
-  }, []);
+  }, [checkoutToken]);
 
   useEffect(() => {
     if (shippingCountry) {
@@ -85,9 +70,22 @@ const AddressForm = ({ checkoutToken, next }) => {
 
   useEffect(() => {
     if (shippingDivision) {
+      const fetchShippingOptions = async (
+        checkoutTokenId,
+        country,
+        region = null
+      ) => {
+        const options = await commerce.checkout.getShippingOptions(
+          checkoutTokenId,
+          { country, region }
+        );
+
+        setShippingOptions(options);
+        setShippingOption(options[0].id);
+      };
       fetchShippingOptions(checkoutToken.id, shippingCountry, shippingDivision);
     }
-  }, [shippingDivision]);
+  }, [shippingDivision, checkoutToken, shippingCountry]);
 
   return (
     <>
@@ -110,9 +108,9 @@ const AddressForm = ({ checkoutToken, next }) => {
             <FormInput name="lastName" label="Last name" required />
             <FormInput name="address" label="Address" required />
             <FormInput name="email" label="Email" required />
+            <FormInput name="phone" label="Phone Number" required />
             <FormInput name="city" label="City" required />
             <FormInput name="zip" label="Zip / Postal code" />
-            <FormInput name="note" label="Note" />
 
             <Grid item xs={12} sm={6}>
               <InputLabel>Shipping Country</InputLabel>

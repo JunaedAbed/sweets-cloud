@@ -1,4 +1,4 @@
-import { InputLabel, MenuItem, Select, Typography } from "@material-ui/core";
+import { MenuItem, Select, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
@@ -17,27 +17,24 @@ const ProductDetailPage = ({ onAddtoCart }) => {
   const [variants, setVariants] = useState([]);
   const [variant, setVariant] = useState("Select an Option");
 
-  const fetchProduct = async () => {
-    const product = await commerce.products.retrieve(id);
-
-    setProduct(product);
-
-    let variants = product.variant_groups[0].options.map((option) => {
-      let variantInfo = {};
-
-      variantInfo.key = option.id;
-      variantInfo.value = option.id;
-      variantInfo.text = option.name;
-
-      return variantInfo;
-    });
-
-    setVariants(variants);
-
-    // setVariant(variants[0]);
-  };
-
   useEffect(() => {
+    const fetchProduct = async () => {
+      const product = await commerce.products.retrieve(id);
+
+      setProduct(product);
+
+      let variants = product.variant_groups[0].options.map((option) => {
+        let variantInfo = {};
+
+        variantInfo.key = option.id;
+        variantInfo.value = option.id;
+        variantInfo.text = option.name;
+
+        return variantInfo;
+      });
+
+      setVariants(variants);
+    };
     fetchProduct();
 
     window.scrollTo(0, 0);

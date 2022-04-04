@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Paper,
   Stepper,
@@ -43,6 +43,8 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
 
     generateToken();
   }, [cart]);
+
+  console.log(checkoutToken);
 
   const nextStep = () => setActiveStep((prevActiveStep) => prevActiveStep + 1);
   const backStep = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);

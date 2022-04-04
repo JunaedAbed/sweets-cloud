@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { GiShoppingBag } from "react-icons/gi";
 import { MdOutlineRestaurantMenu } from "react-icons/md";
-import { Link, useLocation } from "react-router-dom";
 
 import images from "../../constants/images";
 import "./Navbar.css";
@@ -37,8 +36,8 @@ const Navbar = ({ totalItems }) => {
         </ul>
 
         <div className="app__navbar-login">
-          <a href="/store" className="p__opensans">
-            Sweets
+          <a href="./#offers" className="p__opensans">
+            Discounts
           </a>
           <div />
           <a href="/cart" className="p__opensans">

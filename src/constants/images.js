@@ -23,7 +23,7 @@ import gericht from "../assets/gericht.png";
 import sweets from "../assets/sweets-cloud.png";
 import chocolate from "../assets/chocolate.png";
 
-export default {
+const images = {
   bg,
   chef,
   G,
@@ -49,3 +49,5 @@ export default {
   sweets,
   chocolate,
 };
+
+export default images;

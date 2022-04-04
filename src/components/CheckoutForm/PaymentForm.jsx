@@ -1,22 +1,8 @@
 import React from "react";
-import {
-  Button,
-  Card,
-  Container,
-  Divider,
-  Typography,
-} from "@material-ui/core";
-// import {
-//   CardElement,
-//   Elements,
-//   ElementsConsumer,
-// } from "@stripe/react-stripe-js";
-// import { loadStripe } from "@stripe/stripe-js";
+import { Button, Divider, Typography } from "@material-ui/core";
 
 import Review from "./Review";
 import Discount from "./Discount";
-
-// const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 const PaymentForm = ({
   shippingData,
@@ -24,17 +10,9 @@ const PaymentForm = ({
   backStep,
   nextStep,
   onCaptureCheckout,
-  timeout,
 }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    // const cardElement = elements.getElement(CardElement);
-
-    // const { error, paymentMethod } = await stripe.createPaymentMethod({
-    //   type: "card",
-    //   // card: cardElement,
-    // });
 
     const orderData = {
       line_items: checkoutToken.live.line_items,
@@ -42,6 +20,7 @@ const PaymentForm = ({
         firstname: shippingData.firstName,
         lastname: shippingData.lastName,
         email: shippingData.email,
+        phone: shippingData.phone,
       },
       shipping: {
         name: "Domestic",
@@ -49,7 +28,6 @@ const PaymentForm = ({
         town_city: shippingData.city,
         county_state: shippingData.shippingDivision,
         postal_zip_code: shippingData.zip,
-        note: shippingData.note,
         country: shippingData.shippingCountry,
       },
       fulfillment: { shipping_method: shippingData.shippingOption },
@@ -61,14 +39,7 @@ const PaymentForm = ({
       },
     };
     onCaptureCheckout(checkoutToken.id, orderData)
-      .then((order) => {
-        // The checkout has been successfully captured and converted to an order using the manual payment method.
-        // The payment instructions are provided on the order object. Payments on an order is an array, but capturing
-        // checkouts only supports single payments, so we know it'll be the first (and only) payment on the order
-        // console.log(
-        //   order.payments[0].payment_source.method_payment_instructions
-        // );
-      })
+      .then((order) => {})
       .catch((error) => {
         // Something went wrong during capture:
         console.log(error);
