@@ -34,6 +34,7 @@ const App = () => {
     const { cart } = await commerce.cart.add(productId, quantity, variant);
 
     setCart(cart);
+    alert("Item added!");
   };
 
   const handleUpdateQty = async (productId, quantity) => {
