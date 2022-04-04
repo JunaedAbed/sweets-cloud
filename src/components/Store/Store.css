@@ -1,0 +1,18 @@
+.app__store {
+  flex-direction: column;
+  background-color: var(--color-red);
+}
+
+.app__store-title {
+  margin-bottom: 2rem;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.app__store-label {
+  color: white !important;
+}
+
+.app__store-categories {
+  margin-bottom: 2rem;
+}
