@@ -32,11 +32,19 @@ const Footer = () => (
           style={{ marginTop: 15 }}
         />
         <div className="app__footer-links_icons">
-          <a href="https://www.facebook.com/sweetscloudbd/" target="_blank">
+          <a
+            href="https://www.facebook.com/sweetscloudbd/"
+            target="_blank"
+            rel="noreferrer"
+          >
             <FiFacebook />
           </a>
           <FiTwitter />
-          <a href="https://www.instagram.com/sweets.cloudbd/" target="_blank">
+          <a
+            href="https://www.instagram.com/sweets.cloudbd/"
+            target="_blank"
+            rel="noreferrer"
+          >
             <FiInstagram />
           </a>
         </div>
