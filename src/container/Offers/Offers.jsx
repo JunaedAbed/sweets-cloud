@@ -29,7 +29,7 @@ const Offers = () => (
 
       <div className="app__offers-sign">
         <p>
-          Buy Any Items At Flat 20% Discount for Our Grand Opening! Use
+          Buy Any Items At Flat 20 Taka Discount for Our Grand Opening! Use
           FREEDELIVERY code.
         </p>
       </div>
