@@ -1,7 +1,24 @@
 import { List, ListItem, ListItemText, Typography } from "@material-ui/core";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Review = ({ checkoutToken }) => {
+  const [productPrice, setProductPrice] = useState(
+    checkoutToken.live.subtotal.formatted_with_symbol.split("k")[1]
+  );
+  const [deliveryCost, setDeliveryCost] = useState(
+    checkoutToken.live.shipping.available_options[0].price.formatted_with_symbol.split(
+      "k"
+    )[1]
+  );
+  const [sum, setSum] = useState(0);
+
+  useEffect(() => {
+    setSum(parseInt(productPrice, 10) + parseInt(deliveryCost, 10));
+  }, [checkoutToken]);
+
+  console.log(sum);
+  console.log(deliveryCost);
+
   return (
     <>
       <Typography variant="h6" gutterBottom>
@@ -22,9 +39,19 @@ const Review = ({ checkoutToken }) => {
         ))}
 
         <ListItem style={{ padding: "10px 0" }}>
+          <ListItemText secondary="Delivery Cost" />
+          <Typography variant="body2">
+            {
+              checkoutToken.live.shipping.available_options[0].price
+                .formatted_with_symbol
+            }
+          </Typography>
+        </ListItem>
+
+        <ListItem style={{ padding: "0px 0px" }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" style={{ fontWeight: 700 }}>
-            {checkoutToken.live.subtotal.formatted_with_symbol}
+            {`Tk${sum}.00`}
           </Typography>
         </ListItem>
       </List>

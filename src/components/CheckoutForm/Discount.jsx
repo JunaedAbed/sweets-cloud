@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Input,
@@ -10,10 +10,12 @@ import {
 import { commerce } from "../../libs/commerce";
 
 const Discount = ({ checkoutToken }) => {
+  const [deliveryCost, setDeliveryCost] = useState(0);
   const [discountCode, setDiscountCode] = useState("");
   const [discountPrice, setDiscountPrice] = useState(
-    checkoutToken.live.subtotal.formatted_with_symbol
+    checkoutToken.live.total.formatted_with_symbol.split("k")[1]
   );
+  const [sum, setSum] = useState(0);
 
   const handleDiscountClick = async (e) => {
     e.preventDefault();
@@ -28,12 +30,29 @@ const Discount = ({ checkoutToken }) => {
       if (!res.valid) {
         alert("Invalid Code!");
       } else {
-        setDiscountPrice(res.live.total.formatted_with_symbol);
+        setDiscountPrice(res.live.total.formatted_with_symbol.split("k")[1]);
         setDiscountCode(null);
         alert("Discount Code added Successfully");
       }
     }
   };
+
+  useEffect(() => {
+    setDeliveryCost(
+      checkoutToken.live.shipping.available_options[0].price.formatted_with_symbol.split(
+        "k"
+      )[1]
+    );
+  }, [checkoutToken]);
+
+  useEffect(() => {
+    setSum(parseInt(deliveryCost, 10) + parseInt(discountPrice, 10));
+  }, [checkoutToken, sum, discountPrice, deliveryCost]);
+
+  console.log(checkoutToken);
+  console.log(sum);
+  console.log(discountPrice);
+  console.log(deliveryCost);
 
   return (
     <div>
@@ -66,7 +85,7 @@ const Discount = ({ checkoutToken }) => {
           <ListItem style={{ padding: "10px 0" }}>
             <ListItemText primary="Total" />
             <Typography variant="subtitle1" style={{ fontWeight: 700 }}>
-              {discountPrice}
+              {`Tk${sum}.00`}
             </Typography>
           </ListItem>
         </List>
