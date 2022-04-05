@@ -9,7 +9,7 @@ import "./Store.css";
 
 const Store = ({ products }) => {
   const [categories, setCategories] = useState([]);
-  const [category, setCategory] = useState("All");
+  const [category, setCategory] = useState("All Items");
   const [categoryProducts, setCategoryProducts] = useState([]);
 
   const EmptyCategory = () => (
@@ -30,7 +30,7 @@ const Store = ({ products }) => {
 
   useEffect(() => {
     const fetchCategoryProducts = async () => {
-      if (category !== "All") {
+      if (category !== "All Items") {
         const { data } = await commerce.products.list({
           category_slug: [category],
           active: 1,
@@ -63,8 +63,8 @@ const Store = ({ products }) => {
               setCategory(e.target.value);
             }}
           >
-            <MenuItem key="All" value="All">
-              All
+            <MenuItem key="All Items" value="All Items">
+              All Items
             </MenuItem>
             {categories.map((category) => (
               <MenuItem key={category.slug} value={category.slug}>
