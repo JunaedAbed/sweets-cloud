@@ -7,16 +7,9 @@ const Review = ({ checkoutToken }) => {
   const [sum, setSum] = useState(0);
 
   useEffect(() => {
-    setSum(parseInt(productPrice, 10) + parseInt(deliveryCost, 10));
-  }, [checkoutToken, productPrice, deliveryCost]);
-
-  useEffect(() => {
     setProductPrice(
       checkoutToken.live.subtotal.formatted_with_symbol.split("k")[1]
     );
-  }, [checkoutToken]);
-
-  useEffect(() => {
     setDeliveryCost(
       checkoutToken.live.shipping.available_options[0].price.formatted_with_symbol.split(
         "k"
@@ -24,8 +17,15 @@ const Review = ({ checkoutToken }) => {
     );
   }, [checkoutToken]);
 
+  useEffect(() => {
+    setSum(
+      parseInt(productPrice.replace(/,/g, ""), 10) + parseInt(deliveryCost, 10)
+    );
+  }, [checkoutToken, productPrice, deliveryCost]);
+
   console.log(sum);
   console.log(deliveryCost);
+  console.log(productPrice);
 
   return (
     <>
@@ -59,7 +59,9 @@ const Review = ({ checkoutToken }) => {
         <ListItem style={{ padding: "0px 0px" }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" style={{ fontWeight: 700 }}>
-            {`Tk${sum}.00`}
+            {`Tk${sum.toLocaleString(undefined, {
+              maximumFractionDigits: 2,
+            })}.00`}
           </Typography>
         </ListItem>
       </List>

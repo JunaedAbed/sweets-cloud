@@ -46,7 +46,9 @@ const Discount = ({ checkoutToken }) => {
   }, [checkoutToken]);
 
   useEffect(() => {
-    setSum(parseInt(deliveryCost, 10) + parseInt(discountPrice, 10));
+    setSum(
+      parseInt(deliveryCost, 10) + parseInt(discountPrice.replace(/,/g, ""), 10)
+    );
   }, [checkoutToken, sum, discountPrice, deliveryCost]);
 
   console.log(checkoutToken);
@@ -82,10 +84,22 @@ const Discount = ({ checkoutToken }) => {
             </form>
           </ListItem>
 
+          <ListItem style={{ padding: "25px 0px 0px 0px" }}>
+            <ListItemText secondary="Discount" />
+            <Typography variant="body2" color="secondary">{`-Tk${
+              sum - discountPrice
+            }.00`}</Typography>
+          </ListItem>
+          <ListItem style={{ padding: "0px 0" }}>
+            <ListItemText secondary="Delivery" />
+            <Typography variant="body2">{`Tk${deliveryCost}`}</Typography>
+          </ListItem>
           <ListItem style={{ padding: "10px 0" }}>
             <ListItemText primary="Total" />
             <Typography variant="subtitle1" style={{ fontWeight: 700 }}>
-              {`Tk${sum}.00`}
+              {`Tk${sum.toLocaleString(undefined, {
+                maximumFractionDigits: 2,
+              })}.00`}
             </Typography>
           </ListItem>
         </List>
