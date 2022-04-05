@@ -38,7 +38,7 @@ const AboutUs = () => (
         <p className="p__opensans">
           The main important aspect for any sweet is it's freshness. Any sweet
           item will lose it's freshness by 50% on the next day of it's
-          production. So we are here to serve you the sweets within 2 hours of
+          production. So we are here to serve you the sweets within 4 hours of
           making it! Sounds amazing, right? Order now!
         </p>
         <button className="custom__button" type="button">

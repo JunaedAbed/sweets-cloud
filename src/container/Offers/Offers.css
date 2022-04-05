@@ -1,3 +1,7 @@
+.app__offers {
+  background-color: black;
+}
+
 .app__offers-content {
   display: flex;
   flex-direction: column;

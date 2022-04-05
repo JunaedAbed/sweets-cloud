@@ -11,6 +11,13 @@ const Footer = () => (
         <h1 className="app__footer-headtext">Contact Us</h1>
         <p className="p__opensans">Dhaka, Bangladesh</p>
         <p className="p__opensans">+880 1302449669</p>
+        <br />
+        <p className="p__opensans" style={{ textTransform: "lowercase" }}>
+          Facebook: sweetscloudbd
+        </p>
+        <p className="p__opensans" style={{ textTransform: "lowercase" }}>
+          Instagram: sweets.cloudbd
+        </p>
       </div>
 
       <div className="app__footer-links_logo">
@@ -25,9 +32,13 @@ const Footer = () => (
           style={{ marginTop: 15 }}
         />
         <div className="app__footer-links_icons">
-          <FiFacebook />
+          <a href="https://www.facebook.com/sweetscloudbd/" target="_blank">
+            <FiFacebook />
+          </a>
           <FiTwitter />
-          <FiInstagram />
+          <a href="https://www.instagram.com/sweets.cloudbd/" target="_blank">
+            <FiInstagram />
+          </a>
         </div>
       </div>
 

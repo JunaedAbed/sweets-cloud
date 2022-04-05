@@ -36,7 +36,7 @@ const Navbar = ({ totalItems }) => {
         </ul>
 
         <div className="app__navbar-login">
-          <a href="./#offers" className="p__opensans">
+          <a href="/#offers" className="p__opensans">
             Discounts
           </a>
           <div />
