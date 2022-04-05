@@ -13,7 +13,9 @@ const Discount = ({ checkoutToken }) => {
   const [deliveryCost, setDeliveryCost] = useState(0);
   const [discountCode, setDiscountCode] = useState("");
   const [discountPrice, setDiscountPrice] = useState(
-    checkoutToken.live.total.formatted_with_symbol.split("k")[1]
+    checkoutToken.live.total.formatted_with_symbol
+      .split("k")[1]
+      .replace(/,/g, "")
   );
   const [sum, setSum] = useState(0);
 
@@ -30,7 +32,9 @@ const Discount = ({ checkoutToken }) => {
       if (!res.valid) {
         alert("Invalid Code!");
       } else {
-        setDiscountPrice(res.live.total.formatted_with_symbol.split("k")[1]);
+        setDiscountPrice(
+          res.live.total.formatted_with_symbol.split("k")[1]
+        ).replace(/,/g, "");
         setDiscountCode(null);
         alert("Discount Code added Successfully");
       }
@@ -46,9 +50,7 @@ const Discount = ({ checkoutToken }) => {
   }, [checkoutToken]);
 
   useEffect(() => {
-    setSum(
-      parseInt(deliveryCost, 10) + parseInt(discountPrice.replace(/,/g, ""), 10)
-    );
+    setSum(parseInt(deliveryCost, 10) + parseInt(discountPrice, 10));
   }, [checkoutToken, sum, discountPrice, deliveryCost]);
 
   console.log(checkoutToken);

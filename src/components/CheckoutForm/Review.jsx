@@ -8,7 +8,9 @@ const Review = ({ checkoutToken }) => {
 
   useEffect(() => {
     setProductPrice(
-      checkoutToken.live.subtotal.formatted_with_symbol.split("k")[1]
+      checkoutToken.live.subtotal.formatted_with_symbol
+        .split("k")[1]
+        .replace(/,/g, "")
     );
     setDeliveryCost(
       checkoutToken.live.shipping.available_options[0].price.formatted_with_symbol.split(
@@ -18,9 +20,7 @@ const Review = ({ checkoutToken }) => {
   }, [checkoutToken]);
 
   useEffect(() => {
-    setSum(
-      parseInt(productPrice.replace(/,/g, ""), 10) + parseInt(deliveryCost, 10)
-    );
+    setSum(parseInt(productPrice, 10) + parseInt(deliveryCost, 10));
   }, [checkoutToken, productPrice, deliveryCost]);
 
   console.log(sum);
