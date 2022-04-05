@@ -2,18 +2,26 @@ import { List, ListItem, ListItemText, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 
 const Review = ({ checkoutToken }) => {
-  const [productPrice, setProductPrice] = useState(
-    checkoutToken.live.subtotal.formatted_with_symbol.split("k")[1]
-  );
-  const [deliveryCost, setDeliveryCost] = useState(
-    checkoutToken.live.shipping.available_options[0].price.formatted_with_symbol.split(
-      "k"
-    )[1]
-  );
+  const [productPrice, setProductPrice] = useState(0);
+  const [deliveryCost, setDeliveryCost] = useState(0);
   const [sum, setSum] = useState(0);
 
   useEffect(() => {
     setSum(parseInt(productPrice, 10) + parseInt(deliveryCost, 10));
+  }, [checkoutToken, productPrice, deliveryCost]);
+
+  useEffect(() => {
+    setProductPrice(
+      checkoutToken.live.subtotal.formatted_with_symbol.split("k")[1]
+    );
+  }, [checkoutToken]);
+
+  useEffect(() => {
+    setDeliveryCost(
+      checkoutToken.live.shipping.available_options[0].price.formatted_with_symbol.split(
+        "k"
+      )[1]
+    );
   }, [checkoutToken]);
 
   console.log(sum);
