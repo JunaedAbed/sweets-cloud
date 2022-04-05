@@ -21,17 +21,17 @@ const Navbar = ({ totalItems }) => {
         </div>
         <ul className="app__navbar-links">
           <li className="p__opensans">
-            <a href="./#home">Home</a>
+            <a href="/">Home</a>
           </li>
           <li className="p__opensans">
             <a href="/store">Sweets</a>
           </li>
 
           <li className="p__opensans">
-            <a href="./#about">About</a>
+            <a href="/#about">About</a>
           </li>
           <li className="p__opensans">
-            <a href="./#contact">Contact</a>
+            <a href="/#contact">Contact</a>
           </li>
         </ul>
 
@@ -74,7 +74,7 @@ const Navbar = ({ totalItems }) => {
               />
               <ul className="app__navbar-smallscreen_links">
                 <li className="p__opensans">
-                  <a href="./#home" onClick={() => setToggleMenu(false)}>
+                  <a href="/" onClick={() => setToggleMenu(false)}>
                     Home
                   </a>
                 </li>
@@ -85,12 +85,12 @@ const Navbar = ({ totalItems }) => {
                 </li>
 
                 <li className="p__opensans">
-                  <a href="./#about" onClick={() => setToggleMenu(false)}>
+                  <a href="/#about" onClick={() => setToggleMenu(false)}>
                     About
                   </a>
                 </li>
                 <li className="p__opensans">
-                  <a href="./#contact" onClick={() => setToggleMenu(false)}>
+                  <a href="/#contact" onClick={() => setToggleMenu(false)}>
                     Contact
                   </a>
                 </li>
