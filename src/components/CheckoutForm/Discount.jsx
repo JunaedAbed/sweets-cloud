@@ -10,14 +10,18 @@ import {
 import { commerce } from "../../libs/commerce";
 
 const Discount = ({ checkoutToken }) => {
-  const [deliveryCost, setDeliveryCost] = useState(0);
+  const productPrice = checkoutToken.live.subtotal.formatted.replace(/,/g, "");
+  const deliveryCost =
+    checkoutToken.live.shipping.available_options[0].price.formatted;
   const [discountCode, setDiscountCode] = useState("");
-  const [discountPrice, setDiscountPrice] = useState(
-    checkoutToken.live.total.formatted_with_symbol
-      .split("k")[1]
-      .replace(/,/g, "")
+  const [discountPrice, setDiscountPrice] = useState("Tk0.00");
+  const [sum, setSum] = useState(
+    parseInt(checkoutToken.live.subtotal.formatted.replace(/,/g, ""), 10) +
+      parseInt(
+        checkoutToken.live.shipping.available_options[0].price.formatted,
+        10
+      )
   );
-  const [sum, setSum] = useState(0);
 
   const handleDiscountClick = async (e) => {
     e.preventDefault();
@@ -29,32 +33,38 @@ const Discount = ({ checkoutToken }) => {
         code: discountCode,
       });
 
+      console.log(res);
+
       if (!res.valid) {
         alert("Invalid Code!");
       } else {
-        setDiscountPrice(
-          res.live.total.formatted_with_symbol.split("k")[1]
-        ).replace(/,/g, "");
+        setDiscountPrice(res.live.discount.amount_saved.formatted_with_symbol);
+        setSum(
+          parseInt(res.live.total.formatted.replace(/,/g, ""), 10) +
+            parseInt(
+              res.live.shipping.available_options[0].price.formatted.replace(
+                /,/g,
+                ""
+              )
+            ),
+          10
+        );
         setDiscountCode(null);
         alert("Discount Code added Successfully");
       }
     }
   };
 
-  useEffect(() => {
-    setDeliveryCost(
-      checkoutToken.live.shipping.available_options[0].price.formatted_with_symbol.split(
-        "k"
-      )[1]
-    );
-  }, [checkoutToken]);
-
-  useEffect(() => {
-    setSum(parseInt(deliveryCost, 10) + parseInt(discountPrice, 10));
-  }, [checkoutToken, sum, discountPrice, deliveryCost]);
+  // useEffect(() => {
+  //   setProductPrice(checkoutToken.live.subtotal.formatted.replace(/,/g, ""));
+  //   setDeliveryCost(
+  //     checkoutToken.live.shipping.available_options[0].price.formatted
+  //   );
+  // }, [checkoutToken]);
 
   console.log(checkoutToken);
-  console.log(sum);
+  console.log("sum", sum);
+  console.log(productPrice);
   console.log(discountPrice);
   console.log(deliveryCost);
 
@@ -88,14 +98,11 @@ const Discount = ({ checkoutToken }) => {
 
           <ListItem style={{ padding: "25px 0px 0px 0px" }}>
             <ListItemText secondary="Discount" />
-            <Typography variant="body2" color="secondary">{`-Tk${
-              sum - discountPrice
-            }.00`}</Typography>
+            <Typography variant="body2" color="secondary">
+              -{discountPrice}
+            </Typography>
           </ListItem>
-          <ListItem style={{ padding: "0px 0" }}>
-            <ListItemText secondary="Delivery" />
-            <Typography variant="body2">{`Tk${deliveryCost}`}</Typography>
-          </ListItem>
+
           <ListItem style={{ padding: "10px 0" }}>
             <ListItemText primary="Total" />
             <Typography variant="subtitle1" style={{ fontWeight: 700 }}>
