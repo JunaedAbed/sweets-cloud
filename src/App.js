@@ -8,26 +8,9 @@ import Home from "./components/Home/Home";
 import { Footer } from "./container";
 
 const App = () => {
-  // const [featuredProducts, setFeaturedProducts] = useState([]);
-  const [products, setProducts] = useState([]);
   const [cart, setCart] = useState({});
   const [order, setOrder] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
-
-  // const fetchFeaturedProducts = async () => {
-  //   const { data } = await commerce.products.list({ limit: 8 });
-
-  //   setFeaturedProducts(data);
-  // };
-
-  const fetchProducts = async () => {
-    const { data } = await commerce.products.list({
-      sortBy: "name",
-      sortDirection: "asc",
-    });
-
-    setProducts(data);
-  };
 
   const fetchCart = async () => {
     setCart(await commerce.cart.retrieve());
@@ -79,8 +62,6 @@ const App = () => {
   };
 
   useEffect(() => {
-    // fetchFeaturedProducts();
-    fetchProducts();
     fetchCart();
   }, []);
 
@@ -89,26 +70,8 @@ const App = () => {
       <div>
         <Navbar totalItems={cart.total_items} />
         <Routes>
-          <Route
-            exact
-            path="/"
-            element={
-              <Home
-              // featuredProducts={featuredProducts}
-              />
-            }
-          />
-          <Route
-            exact
-            path="/store"
-            element={
-              <Store
-                products={products}
-                // categories={categories}
-                // category={category}
-              />
-            }
-          />
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/store" element={<Store />} />
           <Route
             exact
             path="/view/:id"

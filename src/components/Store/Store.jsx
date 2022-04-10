@@ -7,7 +7,8 @@ import ProductsPage from "../ProductsPage/ProductsPage";
 
 import "./Store.css";
 
-const Store = ({ products }) => {
+const Store = () => {
+  const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("All");
   const [categoryProducts, setCategoryProducts] = useState([]);
@@ -18,6 +19,15 @@ const Store = ({ products }) => {
     </Typography>
   );
 
+  const fetchProducts = async () => {
+    const { data } = await commerce.products.list({
+      sortBy: "name",
+      sortDirection: "asc",
+    });
+
+    setProducts(data);
+  };
+
   const fetchCategories = async () => {
     const { data } = await commerce.categories.list();
 
@@ -25,6 +35,7 @@ const Store = ({ products }) => {
   };
 
   useEffect(() => {
+    fetchProducts();
     fetchCategories();
   }, []);
 
