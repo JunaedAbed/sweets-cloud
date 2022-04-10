@@ -8,20 +8,23 @@ import Home from "./components/Home/Home";
 import { Footer } from "./container";
 
 const App = () => {
-  const [featuredProducts, setFeaturedProducts] = useState([]);
+  // const [featuredProducts, setFeaturedProducts] = useState([]);
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState({});
   const [order, setOrder] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
 
-  const fetchFeaturedProducts = async () => {
-    const { data } = await commerce.products.list({ limit: 8 });
+  // const fetchFeaturedProducts = async () => {
+  //   const { data } = await commerce.products.list({ limit: 8 });
 
-    setFeaturedProducts(data);
-  };
+  //   setFeaturedProducts(data);
+  // };
 
   const fetchProducts = async () => {
-    const { data } = await commerce.products.list({ sortBy: "name" });
+    const { data } = await commerce.products.list({
+      sortBy: "name",
+      sortDirection: "asc",
+    });
 
     setProducts(data);
   };
@@ -75,10 +78,8 @@ const App = () => {
     }
   };
 
-  // console.log(cart);
-
   useEffect(() => {
-    fetchFeaturedProducts();
+    // fetchFeaturedProducts();
     fetchProducts();
     fetchCart();
   }, []);
@@ -91,7 +92,11 @@ const App = () => {
           <Route
             exact
             path="/"
-            element={<Home featuredProducts={featuredProducts} />}
+            element={
+              <Home
+              // featuredProducts={featuredProducts}
+              />
+            }
           />
           <Route
             exact
