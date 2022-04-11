@@ -16,3 +16,10 @@
 .app__store-categories {
   margin-bottom: 2rem;
 }
+
+.app__store-spinner {
+  display: "flex";
+  justify-content: "center";
+  align-items: "center";
+  margin: "20rem 0";
+}

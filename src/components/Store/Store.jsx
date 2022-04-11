@@ -73,6 +73,7 @@ const Store = () => {
         const { data } = await commerce.products.list({
           category_slug: [category],
           active: 1,
+          sortBy: "name",
         });
 
         setCategoryProducts(data);
@@ -119,30 +120,38 @@ const Store = () => {
           )}
         </div>
 
-        <div>
-          <button
-            type="button"
-            className="custom__button"
-            disabled={page === 1}
-            style={{
-              marginTop: "5rem",
-              marginRight: "3rem",
-              padding: "0.5rem 2rem 0.5rem 2rem",
-            }}
-            onClick={handlePrevButton}
-          >
-            Prev
-          </button>
-          <button
-            type="button"
-            className="custom__button"
-            disabled={page === lastPage}
-            style={{ marginTop: "5rem", padding: "0.5rem 2rem 0.5rem 2rem" }}
-            onClick={handleNextButton}
-          >
-            Next
-          </button>
-        </div>
+        {category === "All" && (
+          <div>
+            <Typography
+              className="flex__center"
+              style={{ marginTop: "5rem", color: "lightgrey" }}
+            >
+              Page {page} of {lastPage}
+            </Typography>
+            <button
+              type="button"
+              className="custom__button"
+              disabled={page === 1}
+              style={{
+                marginTop: "1rem",
+                marginRight: "3rem",
+                padding: "0.5rem 2rem 0.5rem 2rem",
+              }}
+              onClick={handlePrevButton}
+            >
+              Prev
+            </button>
+            <button
+              type="button"
+              className="custom__button"
+              disabled={page === lastPage}
+              style={{ marginTop: "1rem", padding: "0.5rem 2rem 0.5rem 2rem" }}
+              onClick={handleNextButton}
+            >
+              Next
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
