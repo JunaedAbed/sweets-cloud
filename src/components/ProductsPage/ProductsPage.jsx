@@ -7,7 +7,6 @@ import ProductPage from "./ProductPage/ProductPage";
 const ProductsPage = ({ products }) => {
   const classes = useStyles();
 
-  console.log(products);
   return (
     <main className={classes.content}>
       <Grid container spacing={3}>

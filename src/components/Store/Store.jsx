@@ -12,6 +12,8 @@ const Store = () => {
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("All");
   const [categoryProducts, setCategoryProducts] = useState([]);
+  const [page, setPage] = useState(1);
+  const [lastPage, setLastPage] = useState("");
 
   const EmptyCategory = () => (
     <Typography variant="subtitle1" style={{ marginBottom: "4rem" }}>
@@ -20,18 +22,44 @@ const Store = () => {
   );
 
   const fetchProducts = async () => {
-    const { data } = await commerce.products.list({
+    const { data, meta } = await commerce.products.list({
+      limit: 16,
       sortBy: "name",
-      sortDirection: "asc",
+      page: page,
     });
 
     setProducts(data);
+    setLastPage(meta.pagination.total_pages);
   };
 
   const fetchCategories = async () => {
     const { data } = await commerce.categories.list();
 
     setCategories(data.map((key) => key));
+  };
+
+  const handleNextButton = async () => {
+    const { data } = await commerce.products.list({
+      page: page + 1,
+      limit: 16,
+      sortBy: "name",
+    });
+
+    setPage(page + 1);
+    setProducts(data);
+    window.scrollTo(0, 0);
+  };
+
+  const handlePrevButton = async () => {
+    const { data } = await commerce.products.list({
+      page: page - 1,
+      limit: 16,
+      sortBy: "name",
+    });
+
+    setPage(page - 1);
+    setProducts(data);
+    window.scrollTo(0, 0);
   };
 
   useEffect(() => {
@@ -52,10 +80,6 @@ const Store = () => {
     };
     fetchCategoryProducts();
   }, [category]);
-
-  console.log(categories);
-  console.log(category);
-  console.log(categoryProducts);
 
   return (
     <div>
@@ -93,6 +117,31 @@ const Store = () => {
           ) : (
             EmptyCategory()
           )}
+        </div>
+
+        <div>
+          <button
+            type="button"
+            className="custom__button"
+            disabled={page === 1}
+            style={{
+              marginTop: "5rem",
+              marginRight: "3rem",
+              padding: "0.5rem 2rem 0.5rem 2rem",
+            }}
+            onClick={handlePrevButton}
+          >
+            Prev
+          </button>
+          <button
+            type="button"
+            className="custom__button"
+            disabled={page === lastPage}
+            style={{ marginTop: "5rem", padding: "0.5rem 2rem 0.5rem 2rem" }}
+            onClick={handleNextButton}
+          >
+            Next
+          </button>
         </div>
       </div>
     </div>
