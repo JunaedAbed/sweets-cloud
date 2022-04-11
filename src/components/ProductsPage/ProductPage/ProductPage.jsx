@@ -16,6 +16,8 @@ const ProductPage = memo(({ product }) => {
   const classes = useStyles();
   const shadowStyles = useBouncyShadowStyles();
 
+  console.log(product);
+
   return (
     <Card
       variant="contained"
