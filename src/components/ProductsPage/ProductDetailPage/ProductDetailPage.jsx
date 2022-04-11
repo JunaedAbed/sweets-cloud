@@ -40,10 +40,6 @@ const ProductDetailPage = ({ onAddtoCart }) => {
     window.scrollTo(0, 0);
   }, [id]);
 
-  console.log(product);
-  console.log("variantsss", variants);
-  console.log("Variant", variant);
-
   return (
     <div>
       <div className="app__detail app__wrapper flex__center section__padding">
