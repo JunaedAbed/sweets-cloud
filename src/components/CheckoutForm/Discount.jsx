@@ -10,9 +10,6 @@ import {
 import { commerce } from "../../libs/commerce";
 
 const Discount = ({ checkoutToken }) => {
-  const productPrice = checkoutToken.live.subtotal.formatted.replace(/,/g, "");
-  const deliveryCost =
-    checkoutToken.live.shipping.available_options[0].price.formatted;
   const [discountCode, setDiscountCode] = useState("");
   const [discountPrice, setDiscountPrice] = useState("Tk0.00");
   const [sum, setSum] = useState(
