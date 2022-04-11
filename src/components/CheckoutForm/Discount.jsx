@@ -55,19 +55,6 @@ const Discount = ({ checkoutToken }) => {
     }
   };
 
-  // useEffect(() => {
-  //   setProductPrice(checkoutToken.live.subtotal.formatted.replace(/,/g, ""));
-  //   setDeliveryCost(
-  //     checkoutToken.live.shipping.available_options[0].price.formatted
-  //   );
-  // }, [checkoutToken]);
-
-  console.log(checkoutToken);
-  console.log("sum", sum);
-  console.log(productPrice);
-  console.log(discountPrice);
-  console.log(deliveryCost);
-
   return (
     <div>
       <>

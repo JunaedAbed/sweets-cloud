@@ -50,8 +50,6 @@ const PaymentForm = ({
     nextStep();
   };
 
-  console.log(shippingData);
-  console.log(checkoutToken);
   return (
     <>
       <Review checkoutToken={checkoutToken} />

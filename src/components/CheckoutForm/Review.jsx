@@ -23,10 +23,6 @@ const Review = ({ checkoutToken }) => {
     setSum(parseInt(productPrice, 10) + parseInt(deliveryCost, 10));
   }, [checkoutToken, productPrice, deliveryCost]);
 
-  console.log(sum);
-  console.log(deliveryCost);
-  console.log(productPrice);
-
   return (
     <>
       <Typography variant="h6" gutterBottom>
