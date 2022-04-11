@@ -21,17 +21,6 @@ const Store = () => {
     </Typography>
   );
 
-  const fetchProducts = async () => {
-    const { data, meta } = await commerce.products.list({
-      limit: 16,
-      sortBy: "name",
-      page: page,
-    });
-
-    setProducts(data);
-    setLastPage(meta.pagination.total_pages);
-  };
-
   const fetchCategories = async () => {
     const { data } = await commerce.categories.list();
 
@@ -63,6 +52,17 @@ const Store = () => {
   };
 
   useEffect(() => {
+    const fetchProducts = async () => {
+      const { data, meta } = await commerce.products.list({
+        limit: 16,
+        sortBy: "name",
+        page: 1,
+      });
+
+      setProducts(data);
+      setLastPage(meta.pagination.total_pages);
+    };
+
     fetchProducts();
     fetchCategories();
   }, []);
