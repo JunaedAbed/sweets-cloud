@@ -17,7 +17,7 @@ const ProductsPage = ({ products }) => {
               <Grid item key={product.id} xs={12} sm={12} lg={12}>
                 <ProductPage product={product} />
               </Grid>
-            ) : products.length === 2 ? (
+            ) : products.length === 2 || products.length === 3 ? (
               <Grid item key={product.id} xs={12} sm={6} lg={6}>
                 <ProductPage product={product} />
               </Grid>
