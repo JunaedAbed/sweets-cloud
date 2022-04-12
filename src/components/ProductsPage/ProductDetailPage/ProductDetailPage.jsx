@@ -1,5 +1,5 @@
-import { MenuItem, Select, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
+import { IconButton, MenuItem, Select, Typography } from "@material-ui/core";
 
 import { useParams } from "react-router-dom";
 
@@ -9,6 +9,7 @@ import RelatedProducts from "./RelatedProducts/RelatedProducts";
 
 import "./ProductDetailPage.css";
 import { FormProvider } from "react-hook-form";
+import { Add, Remove } from "@material-ui/icons";
 
 const ProductDetailPage = ({ onAddtoCart }) => {
   const { id } = useParams();
@@ -16,6 +17,7 @@ const ProductDetailPage = ({ onAddtoCart }) => {
   const [product, setProduct] = useState("");
   const [variants, setVariants] = useState([]);
   const [variant, setVariant] = useState("Select an Option");
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -103,6 +105,34 @@ const ProductDetailPage = ({ onAddtoCart }) => {
                   >
                     {product.price.formatted_with_symbol}
                   </Typography>
+                  <br />
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      color: "lightgrey",
+                    }}
+                  >
+                    <IconButton
+                      aria-label="Subtract"
+                      onClick={() => {
+                        setQuantity(quantity - 1);
+                      }}
+                      disabled={quantity === 1}
+                    >
+                      <Remove style={{ color: "lightgrey" }} />
+                    </IconButton>
+                    <Typography>{quantity}</Typography>
+                    <IconButton
+                      aria-label="Add"
+                      onClick={() => {
+                        setQuantity(quantity + 1);
+                      }}
+                    >
+                      <Add style={{ color: "lightgrey" }} />
+                    </IconButton>
+                  </div>
+
                   <button
                     type="submit"
                     className="custom__button"
@@ -116,7 +146,7 @@ const ProductDetailPage = ({ onAddtoCart }) => {
                         alert("Select an option");
                         return;
                       }
-                      onAddtoCart(product.id, 1, variant);
+                      onAddtoCart(product.id, quantity, variant);
                     }}
                   >
                     Add To Cart
