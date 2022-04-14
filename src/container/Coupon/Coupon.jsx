@@ -2,16 +2,16 @@ import React from "react";
 
 import { SubHeading } from "../../components";
 import { images } from "../../constants";
-import "./Offers.css";
+import "./Coupon.css";
 
-const Offers = () => (
-  <div className="app__offers app__wrapper section__padding" id="offers">
+const Coupon = () => (
+  <div className="app__coupon app__wrapper section__padding" id="coupon">
     <div className="app__wrapper_info">
-      <SubHeading title="Limited Time Offer" />
+      <SubHeading title="Discounts" />
       <h1 className="headtext__cormorant">Special Edition</h1>
 
-      <div className="app__offers-content">
-        <div className="app__offers-content_quote">
+      <div className="app__coupon-content">
+        <div className="app__coupon-content_quote">
           <img src={images.quote} alt="quote_image" />
           <p className="p__opensans">
             The special edition comes with special packaging and extra love.
@@ -21,7 +21,7 @@ const Offers = () => (
         </div>
       </div>
 
-      <div className="app__offers-sign">
+      <div className="app__coupon-sign">
         <p>
           Buy Any Sweets Item and get Completely FREE Delivery for Our Grand
           Opening!
@@ -32,4 +32,4 @@ const Offers = () => (
   </div>
 );
 
-export default Offers;
+export default Coupon;

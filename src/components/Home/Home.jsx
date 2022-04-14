@@ -4,7 +4,8 @@ import {
   FeaturedProducts,
   FindUs,
   Header,
-  Offers,
+  Coupon,
+  Offer,
 } from "../../container";
 import { commerce } from "../../libs/commerce";
 
@@ -26,7 +27,8 @@ const Home = () => {
       <Header />
       <AboutUs />
       <FeaturedProducts featuredProducts={featuredProducts} />
-      <Offers />
+      <Coupon />
+      <Offer />
       <FindUs />
     </div>
   );

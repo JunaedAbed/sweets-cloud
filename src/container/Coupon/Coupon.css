@@ -1,8 +1,8 @@
-.app__offers {
+.app__coupon {
   background-color: black;
 }
 
-.app__offers-content {
+.app__coupon-content {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -10,24 +10,24 @@
   margin-top: 5rem;
 }
 
-.app__offers-content_quote {
+.app__coupon-content_quote {
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
 }
 
-.app__offers-content_quote img {
+.app__coupon-content_quote img {
   width: 40px;
   height: 30px;
   margin: 0 1rem 1rem 0;
 }
 
-.app__offers-sign {
+.app__coupon-sign {
   width: 100%;
   margin-top: 3rem;
 }
 
-.app__offers-sign p:first-child {
+.app__coupon-sign p:first-child {
   font-family: var(--font-base);
   font-weight: 400;
   font-size: 32px;
@@ -37,19 +37,19 @@
   color: var(--color-orange);
 }
 
-.app__offers-sign img {
+.app__coupon-sign img {
   width: 250px;
   margin-top: 3rem;
 }
 
 @media screen and (min-width: 2000px) {
-  .app__offers-sign img {
+  .app__coupon-sign img {
     width: 370px;
   }
 }
 
 @media screen and (max-width: 450px) {
-  .app__offers-sign img {
+  .app__coupon-sign img {
     width: 80%;
   }
 }
