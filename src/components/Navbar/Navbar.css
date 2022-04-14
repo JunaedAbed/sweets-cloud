@@ -26,13 +26,13 @@
   list-style: none;
 }
 
-.app__navbar-links li {
+.app__navbar-links a {
   margin: 0 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.app__navbar-links li:hover {
+.app__navbar-links a:hover {
   color: var(--color-orange);
 }
 

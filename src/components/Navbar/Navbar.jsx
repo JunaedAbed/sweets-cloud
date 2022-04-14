@@ -19,6 +19,7 @@ const Navbar = ({ totalItems }) => {
             <img src={images.sweets} alt="app logo"></img>
           </a>
         </div>
+
         <ul className="app__navbar-links">
           <li className="p__opensans">
             <a href="/">Home</a>
