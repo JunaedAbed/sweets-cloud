@@ -22,6 +22,7 @@ import quote from "../assets/quote.png";
 import gericht from "../assets/gericht.png";
 import sweets from "../assets/sweets-cloud.png";
 import chocolate from "../assets/chocolate.png";
+import offer01 from "../assets/offer01.png";
 
 const images = {
   bg,
@@ -48,6 +49,7 @@ const images = {
   gericht,
   sweets,
   chocolate,
+  offer01,
 };
 
 export default images;
