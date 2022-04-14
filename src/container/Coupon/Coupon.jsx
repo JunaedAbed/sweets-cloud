@@ -7,8 +7,8 @@ import "./Coupon.css";
 const Coupon = () => (
   <div className="app__coupon app__wrapper section__padding" id="coupon">
     <div className="app__wrapper_info">
-      <SubHeading title="Discounts" />
-      <h1 className="headtext__cormorant">Special Edition</h1>
+      <SubHeading title="Coupon Code" />
+      <h1 className="headtext__cormorant">Discount</h1>
 
       <div className="app__coupon-content">
         <div className="app__coupon-content_quote">
