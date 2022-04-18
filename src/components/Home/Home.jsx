@@ -13,7 +13,11 @@ const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
 
   const fetchFeaturedProducts = async () => {
-    const { data } = await commerce.products.list({ limit: 8 });
+    const { data } = await commerce.products.list({
+      sortBy: "created_at",
+      sortDirection: "desc",
+      limit: 8,
+    });
 
     setFeaturedProducts(data);
   };
