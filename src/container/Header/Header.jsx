@@ -18,6 +18,7 @@ const Header = () => (
     </div>
 
     <div className="app__wrapper_img">
+      {/* here is the welcome pic */}
       <img src={images.welcome} alt="header img" />
     </div>
   </div>
