@@ -31,8 +31,8 @@ const Home = () => {
       <Header />
       <AboutUs />
       <FeaturedProducts featuredProducts={featuredProducts} />
-      <Coupon />
-      <Offer />
+      {/* <Coupon /> */}
+      {/* <Offer /> */}
       <FindUs />
     </div>
   );
