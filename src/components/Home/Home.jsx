@@ -4,8 +4,8 @@ import {
   FeaturedProducts,
   FindUs,
   Header,
-  Coupon,
-  Offer,
+  // Coupon,
+  // Offer,
 } from "../../container";
 import { commerce } from "../../libs/commerce";
 
