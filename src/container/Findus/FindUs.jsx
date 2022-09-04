@@ -13,15 +13,20 @@ const FindUs = () => (
         Find Us
       </h1>
       <div className="app__wrapper-content">
-        <p className="p__opensans">Dhaka, Bangladesh</p>
+        <p className="p__opensans">
+          Shwapno, House No-39(Ground Floor),
+          <br /> Road No-27(old) 16(new),
+          <br /> Dhanmondi, Dhaka
+          <br />
+          (Inside Shwapno Super Shop)
+        </p>
         <p
           className="p__cormorant"
           style={{ color: "#DCCA87", margin: "2rem 0" }}
         >
           Opening Hours
         </p>
-        <p className="p__opensans">Sat - Thu: 10:00 am - 02:00 am</p>
-        <p className="p__opensans">Fri: Closed</p>
+        <p className="p__opensans">Everyday: 09:00 AM - 08:00 PM</p>
       </div>
       <a
         type="button"
