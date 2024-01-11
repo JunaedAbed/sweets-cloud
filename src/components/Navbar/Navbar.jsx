@@ -42,7 +42,11 @@ const Navbar = ({ totalItems }) => {
           </a>
           <div />
           <a href="/cart" className="p__opensans">
-            <Badge badgeContent={totalItems} color="secondary">
+            <Badge
+              badgeContent={totalItems}
+              color="secondary"
+              overlap="rectangular"
+            >
               <GiShoppingBag color="#fff" fontSize={27} />
             </Badge>
           </a>
@@ -55,7 +59,11 @@ const Navbar = ({ totalItems }) => {
               className="p__opensans"
               style={{ margin: "0 1.5rem" }}
             >
-              <Badge badgeContent={totalItems} color="secondary">
+              <Badge
+                badgeContent={totalItems}
+                color="secondary"
+                overlap="rectangular"
+              >
                 <GiShoppingBag color="#fff" fontSize={27} />
               </Badge>
             </a>

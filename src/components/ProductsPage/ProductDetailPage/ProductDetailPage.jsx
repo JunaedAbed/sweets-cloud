@@ -24,8 +24,6 @@ const ProductDetailPage = ({ onAddtoCart }) => {
       try {
         const product = await commerce.products.retrieve(id);
 
-        console.log(product);
-
         setProduct(product);
 
         if (product.variant_groups && product.variant_groups.length > 0) {
