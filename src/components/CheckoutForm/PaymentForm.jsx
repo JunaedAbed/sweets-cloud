@@ -15,7 +15,7 @@ const PaymentForm = ({
     event.preventDefault();
 
     const orderData = {
-      line_items: checkoutToken.live.line_items,
+      line_items: checkoutToken.line_items,
       customer: {
         firstname: shippingData.firstName,
         lastname: shippingData.lastName,

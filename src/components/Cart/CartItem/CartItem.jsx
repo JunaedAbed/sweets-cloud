@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardActionArea,
@@ -7,6 +7,7 @@ import {
   CardMedia,
   IconButton,
   Typography,
+  CircularProgress,
 } from "@material-ui/core";
 
 import { Link } from "react-router-dom";
@@ -16,6 +17,25 @@ import useStyles from "./styles";
 
 const CartItem = ({ item, handleUpdateQty, handleRemoveFromCart }) => {
   const classes = useStyles();
+  const [loading, setLoading] = useState(false);
+
+  const handleUpdateQtyWithLoader = async (itemId, newQuantity) => {
+    try {
+      setLoading(true);
+      await handleUpdateQty(itemId, newQuantity);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleRemoveFromCartWithLoader = async (itemId) => {
+    try {
+      setLoading(true);
+      await handleRemoveFromCart(itemId);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Card variant="outlined" style={{ backgroundColor: "black" }}>
@@ -52,18 +72,20 @@ const CartItem = ({ item, handleUpdateQty, handleRemoveFromCart }) => {
         <div className={classes.buttons}>
           <IconButton
             aria-label="Subtract"
-            onClick={() => {
-              handleUpdateQty(item.id, item.quantity - 1);
-            }}
+            onClick={() =>
+              handleUpdateQtyWithLoader(item.id, item.quantity - 1)
+            }
+            disabled={loading}
           >
             <Remove style={{ color: "lightgrey" }} />
           </IconButton>
           <Typography className="p__opensans">{item.quantity}</Typography>
           <IconButton
             aria-label="Add"
-            onClick={() => {
-              handleUpdateQty(item.id, item.quantity + 1);
-            }}
+            onClick={() =>
+              handleUpdateQtyWithLoader(item.id, item.quantity + 1)
+            }
+            disabled={loading}
           >
             <Add style={{ color: "lightgrey" }} />
           </IconButton>
@@ -72,9 +94,14 @@ const CartItem = ({ item, handleUpdateQty, handleRemoveFromCart }) => {
           size="small"
           color="secondary"
           aria-label="Remove"
-          onClick={() => handleRemoveFromCart(item.id)}
+          onClick={() => handleRemoveFromCartWithLoader(item.id)}
+          disabled={loading}
         >
-          <DeleteRounded />
+          {loading ? (
+            <CircularProgress size={20} color="secondary" />
+          ) : (
+            <DeleteRounded />
+          )}
         </IconButton>
       </CardActions>
     </Card>

@@ -13,11 +13,8 @@ const Discount = ({ checkoutToken }) => {
   const [discountCode, setDiscountCode] = useState("");
   const [discountPrice, setDiscountPrice] = useState("Tk0.00");
   const [sum, setSum] = useState(
-    parseInt(checkoutToken.live.subtotal.formatted.replace(/,/g, ""), 10) +
-      parseInt(
-        checkoutToken.live.shipping.available_options[0].price.formatted,
-        10
-      )
+    parseInt(checkoutToken.subtotal.formatted.replace(/,/g, ""), 10) +
+      parseInt(checkoutToken.shipping_methods[0].price.formatted, 10)
   );
 
   const handleDiscountClick = async (e) => {
