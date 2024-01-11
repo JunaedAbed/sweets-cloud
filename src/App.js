@@ -17,6 +17,9 @@ const App = () => {
   };
 
   const handleAddtoCart = async (productId, quantity, variant) => {
+    console.log(productId);
+    console.log(quantity);
+    console.log(variant);
     const reponse = await commerce.cart.add(productId, quantity, variant);
 
     setCart(reponse);

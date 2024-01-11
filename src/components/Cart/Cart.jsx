@@ -19,6 +19,8 @@ const Cart = ({
 }) => {
   const classes = useStyle();
 
+  console.log(cart);
+
   const EmptyCart = () => (
     <Typography variant="subtitle1" style={{ marginBottom: "4rem" }}>
       You have no items in your cart{" "}

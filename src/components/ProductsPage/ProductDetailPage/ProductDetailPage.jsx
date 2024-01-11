@@ -18,11 +18,14 @@ const ProductDetailPage = ({ onAddtoCart }) => {
   const [options, setOptions] = useState([]);
   const [option, setOption] = useState("Select an Option");
   const [quantity, setQuantity] = useState(1);
+  const [selectedOptionPrice, setSelectedOptionPrice] = useState(null);
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const product = await commerce.products.retrieve(id);
+
+        console.log(product);
 
         setProduct(product);
 
@@ -33,6 +36,7 @@ const ProductDetailPage = ({ onAddtoCart }) => {
             variantInfo.key = option.id;
             variantInfo.value = option.id;
             variantInfo.text = option.name;
+            variantInfo.price = option.price.formatted_with_symbol;
 
             return variantInfo;
           });
@@ -50,6 +54,17 @@ const ProductDetailPage = ({ onAddtoCart }) => {
 
     window.scrollTo(0, 0);
   }, [id]);
+
+  const handleOptionChange = (e) => {
+    const newSelectedOption = e.target.value;
+    setOption({ [product.variant_groups[0].id]: newSelectedOption });
+    const selectedOptionData = options.find(
+      (option) => option.value === newSelectedOption
+    );
+    if (selectedOptionData) {
+      setSelectedOptionPrice(selectedOptionData.price);
+    }
+  };
 
   return (
     <div>
@@ -86,13 +101,15 @@ const ProductDetailPage = ({ onAddtoCart }) => {
                     value={option.text}
                     defaultValue="Select an Option"
                     fullWidth
-                    onChange={(e) => {
-                      e.target.value !== "Select an Option"
-                        ? setOption({
-                            [product.variant_groups[0].id]: e.target.value,
-                          })
-                        : setOption("Select an Option");
-                    }}
+                    onChange={handleOptionChange}
+
+                    // onChange={(e) => {
+                    //   e.target.value !== "Select an Option"
+                    //     ? setOption({
+                    //         [product.variant_groups[0].id]: e.target.value,
+                    //       })
+                    //     : setOption("Select an Option");
+                    // }}
                   >
                     <MenuItem key="Select an Option" value="Select an Option">
                       Select an Option
@@ -112,7 +129,7 @@ const ProductDetailPage = ({ onAddtoCart }) => {
                     style={{ lineHeight: "1.75rem" }}
                     gutterBottom
                   >
-                    {product.price.formatted_with_symbol}
+                    {selectedOptionPrice || product.price.formatted_with_symbol}
                   </Typography>
                   <br />
                   <div
