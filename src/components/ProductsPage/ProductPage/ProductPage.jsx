@@ -18,7 +18,7 @@ const ProductPage = memo(({ product }) => {
 
   return (
     <Card
-      variant="contained"
+      variant="elevation"
       className={(classes.root, shadowStyles.root)}
       style={{ height: "100%", backgroundColor: "black" }}
     >

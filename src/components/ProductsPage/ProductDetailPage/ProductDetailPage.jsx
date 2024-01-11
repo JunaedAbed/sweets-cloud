@@ -15,28 +15,39 @@ const ProductDetailPage = ({ onAddtoCart }) => {
   const { id } = useParams();
 
   const [product, setProduct] = useState("");
-  const [variants, setVariants] = useState([]);
-  const [variant, setVariant] = useState("Select an Option");
+  const [options, setOptions] = useState([]);
+  const [option, setOption] = useState("Select an Option");
   const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const product = await commerce.products.retrieve(id);
+      try {
+        const product = await commerce.products.retrieve(id);
 
-      setProduct(product);
+        console.log(product);
 
-      let variants = product.variant_groups[0].options.map((option) => {
-        let variantInfo = {};
+        setProduct(product);
 
-        variantInfo.key = option.id;
-        variantInfo.value = option.id;
-        variantInfo.text = option.name;
+        if (product.variant_groups && product.variant_groups.length > 0) {
+          let variants = product.variant_groups[0].options.map((option) => {
+            let variantInfo = {};
 
-        return variantInfo;
-      });
+            variantInfo.key = option.id;
+            variantInfo.value = option.id;
+            variantInfo.text = option.name;
 
-      setVariants(variants);
+            return variantInfo;
+          });
+
+          setOptions(variants);
+        } else {
+          setOptions([]);
+        }
+      } catch (error) {
+        console.error("Error fetching product:", error);
+      }
     };
+
     fetchProduct();
 
     window.scrollTo(0, 0);
@@ -64,7 +75,7 @@ const ProductDetailPage = ({ onAddtoCart }) => {
           />
           <br />
 
-          {product && variants && (
+          {product && options && (
             <>
               <FormProvider>
                 <form>
@@ -74,23 +85,23 @@ const ProductDetailPage = ({ onAddtoCart }) => {
                   <br />
 
                   <Select
-                    value={variant.text}
+                    value={option.text}
                     defaultValue="Select an Option"
                     fullWidth
                     onChange={(e) => {
                       e.target.value !== "Select an Option"
-                        ? setVariant({
+                        ? setOption({
                             [product.variant_groups[0].id]: e.target.value,
                           })
-                        : setVariant("Select an Option");
+                        : setOption("Select an Option");
                     }}
                   >
                     <MenuItem key="Select an Option" value="Select an Option">
                       Select an Option
                     </MenuItem>
-                    {variants.map((variant) => (
-                      <MenuItem key={variant.key} value={variant.value}>
-                        {variant.text}
+                    {options.map((option) => (
+                      <MenuItem key={option.key} value={option.value}>
+                        {option.text}
                       </MenuItem>
                     ))}
                   </Select>
@@ -140,13 +151,14 @@ const ProductDetailPage = ({ onAddtoCart }) => {
                     onClick={(e) => {
                       e.preventDefault();
                       if (
-                        variant === "Select an Option" ||
+                        option === "Select an Option" ||
                         e.target.value === "Select an Option"
                       ) {
                         alert("Select an option");
                         return;
                       }
-                      onAddtoCart(product.id, quantity, variant);
+
+                      onAddtoCart(product.id, quantity, option);
                     }}
                   >
                     Add To Cart

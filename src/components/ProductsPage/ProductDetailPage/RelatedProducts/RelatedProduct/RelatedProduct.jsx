@@ -15,7 +15,7 @@ const ProductPage = ({ product }) => {
 
   return (
     <Card
-      variant="contained"
+      variant="elevation"
       className={classes.root}
       style={{ height: "100%", backgroundColor: "black" }}
     >
