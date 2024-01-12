@@ -7,13 +7,13 @@ import {
   CardMedia,
   IconButton,
   Typography,
-  CircularProgress,
 } from "@material-ui/core";
 
 import { Link } from "react-router-dom";
 import { DeleteRounded, Add, Remove } from "@material-ui/icons";
 
 import useStyles from "./styles";
+import CustomLoader from "../../../common/CustomLoader";
 
 const CartItem = ({ item, handleUpdateQty, handleRemoveFromCart }) => {
   const classes = useStyles();
@@ -98,7 +98,7 @@ const CartItem = ({ item, handleUpdateQty, handleRemoveFromCart }) => {
           disabled={loading}
         >
           {loading ? (
-            <CircularProgress size={20} color="secondary" />
+            <CustomLoader size={20} color="secondary" />
           ) : (
             <DeleteRounded />
           )}

@@ -1,9 +1,4 @@
-import {
-  CircularProgress,
-  MenuItem,
-  Select,
-  Typography,
-} from "@material-ui/core";
+import { MenuItem, Select, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 
 import { SubHeading } from "..";
@@ -11,6 +6,7 @@ import { commerce } from "../../libs/commerce";
 import ProductsPage from "../ProductsPage/ProductsPage";
 
 import "./Store.css";
+import CustomLoader from "../../common/CustomLoader";
 
 const Store = () => {
   const [products, setProducts] = useState([]);
@@ -140,7 +136,7 @@ const Store = () => {
 
         <div className="app__store-menu">
           {loading || loadingCategory ? (
-            <CircularProgress style={{ margin: "auto" }} />
+            <CustomLoader />
           ) : categoryProducts ? (
             <ProductsPage
               products={category === "All" ? products : categoryProducts}

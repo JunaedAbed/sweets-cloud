@@ -1,15 +1,10 @@
-import {
-  Button,
-  CircularProgress,
-  Container,
-  Grid,
-  Typography,
-} from "@material-ui/core";
+import { Button, Container, Grid, Typography } from "@material-ui/core";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import CartItem from "./CartItem/CartItem";
 
 import useStyle from "./styles";
+import CustomLoader from "../../common/CustomLoader";
 
 const Cart = ({
   cart,
@@ -43,7 +38,7 @@ const Cart = ({
   if (!cart.line_items)
     return (
       <div className={classes.spinner}>
-        <CircularProgress />
+        <CustomLoader />
       </div>
     );
 
@@ -74,7 +69,7 @@ const Cart = ({
             color="secondary"
             onClick={handleCartDiscard}
           >
-            {loading ? <CircularProgress size={20} /> : "Empty"}
+            {loading ? <CustomLoader size={20} /> : "Empty"}
           </Button>
           <Button
             component={Link}

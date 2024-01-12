@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  IconButton,
-  MenuItem,
-  Select,
-  Typography,
-  CircularProgress,
-} from "@material-ui/core";
+import { IconButton, MenuItem, Select, Typography } from "@material-ui/core";
 
 import { useParams } from "react-router-dom";
 
@@ -16,6 +10,7 @@ import RelatedProducts from "./RelatedProducts/RelatedProducts";
 import "./ProductDetailPage.css";
 import { FormProvider } from "react-hook-form";
 import { Add, Remove } from "@material-ui/icons";
+import CustomLoader from "../../../common/CustomLoader";
 
 const ProductDetailPage = ({ onAddtoCart }) => {
   const { id } = useParams();
@@ -26,6 +21,7 @@ const ProductDetailPage = ({ onAddtoCart }) => {
   const [quantity, setQuantity] = useState(1);
   const [selectedOptionPrice, setSelectedOptionPrice] = useState("0.00");
   const [loading, setLoading] = useState(false);
+  const [pageLoading, setPageLoading] = useState(true);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -52,6 +48,8 @@ const ProductDetailPage = ({ onAddtoCart }) => {
         }
       } catch (error) {
         console.error("Error fetching product:", error);
+      } finally {
+        setPageLoading(false);
       }
     };
 
@@ -99,7 +97,11 @@ const ProductDetailPage = ({ onAddtoCart }) => {
     <div>
       <div className="app__detail app__wrapper flex__center section__padding">
         <div className="app__detail-img">
-          {product && <img src={product.image.url} alt="header img" />}
+          {pageLoading ? (
+            <CustomLoader />
+          ) : (
+            product && <img src={product.image.url} alt="header img" />
+          )}
         </div>
 
         <div className="app__wrapper_info">
@@ -214,7 +216,7 @@ const ProductDetailPage = ({ onAddtoCart }) => {
                       handleAddToCart();
                     }}
                   >
-                    {loading ? <CircularProgress size={20} /> : "Add To Cart"}
+                    {loading ? <CustomLoader size={20} /> : "Add To Cart"}
                   </button>
                 </form>
               </FormProvider>

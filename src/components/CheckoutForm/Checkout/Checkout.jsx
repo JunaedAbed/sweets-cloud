@@ -5,7 +5,6 @@ import {
   Step,
   StepLabel,
   Typography,
-  CircularProgress,
   Divider,
   Button,
   CssBaseline,
@@ -17,6 +16,7 @@ import { commerce } from "../../../libs/commerce";
 import useStyles from "./styles";
 import PaymentForm from "../PaymentForm";
 import AddressForm from "../AddressForm";
+import CustomLoader from "../../../common/CustomLoader";
 
 const steps = ["Shipping Address", "Payment Details"];
 
@@ -92,7 +92,7 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
       </>
     ) : (
       <div className={classes.spinner}>
-        <CircularProgress />
+        <CustomLoader />
       </div>
     );
 
@@ -139,7 +139,7 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
 
           {loading ? (
             <div className={classes.loaderContainer}>
-              <CircularProgress style={{ margin: "auto" }} />
+              <CustomLoader style={{ margin: "auto" }} />
             </div>
           ) : activeStep === steps.length ? (
             <Confirmation />
