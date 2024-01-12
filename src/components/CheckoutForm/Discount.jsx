@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Input,
@@ -9,13 +9,42 @@ import {
 } from "@material-ui/core";
 import { commerce } from "../../libs/commerce";
 
-const Discount = ({ checkoutToken }) => {
+const Discount = ({ checkoutToken, shippingData }) => {
+  const [deliveryCost, setDeliveryCost] = useState(0);
   const [discountCode, setDiscountCode] = useState("");
   const [discountPrice, setDiscountPrice] = useState("Tk0.00");
   const [sum, setSum] = useState(
-    parseInt(checkoutToken.subtotal.formatted.replace(/,/g, ""), 10) +
-      parseInt(checkoutToken.shipping_methods[0].price.formatted, 10)
+    // parseInt(checkoutToken.subtotal.formatted.replace(/,/g, ""), 10) +
+    //   parseInt(checkoutToken.shipping_methods[0].price.formatted, 10)
+    0
   );
+
+  useEffect(() => {
+    if (shippingData.shippingOption) {
+      const selectedShippingOption = checkoutToken.shipping_methods.find(
+        (method) => method.id === shippingData.shippingOption
+      );
+
+      if (selectedShippingOption) {
+        const formattedDeliveryCost =
+          selectedShippingOption.price.formatted_with_symbol
+            .split("k")[1]
+            .replace(/,/g, "");
+
+        setDeliveryCost(formattedDeliveryCost);
+      }
+    }
+
+    setSum(
+      parseInt(checkoutToken.subtotal.formatted.replace(/,/g, ""), 10) +
+        parseInt(deliveryCost, 10)
+    );
+  }, [
+    checkoutToken.shipping_methods,
+    checkoutToken.subtotal.formatted,
+    deliveryCost,
+    shippingData.shippingOption,
+  ]);
 
   const handleDiscountClick = async (e) => {
     e.preventDefault();

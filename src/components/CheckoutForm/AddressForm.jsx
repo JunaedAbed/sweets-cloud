@@ -84,7 +84,13 @@ const AddressForm = ({ checkoutToken, next }) => {
         );
 
         setShippingOptions(options);
-        setShippingOption(options[0].id);
+
+        if (shippingDivision === "13") {
+          setShippingOption(options[0].id);
+        } else if (shippingDivision === "40") {
+          setShippingOption(options[1].id);
+        }
+
         setIsShippingOptionsLoaded(true);
       };
       fetchShippingOptions(checkoutToken.id, shippingCountry, shippingDivision);
@@ -132,7 +138,7 @@ const AddressForm = ({ checkoutToken, next }) => {
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <InputLabel>Shipping Division</InputLabel>
+              <InputLabel>Shipping Area</InputLabel>
               <Select
                 value={shippingDivision}
                 defaultValue=""

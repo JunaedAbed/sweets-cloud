@@ -1,7 +1,7 @@
 import { List, ListItem, ListItemText, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 
-const Review = ({ checkoutToken }) => {
+const Review = ({ checkoutToken, shippingData }) => {
   const [productPrice, setProductPrice] = useState(0);
   const [deliveryCost, setDeliveryCost] = useState(0);
   const [sum, setSum] = useState(0);
@@ -12,12 +12,22 @@ const Review = ({ checkoutToken }) => {
         .split("k")[1]
         .replace(/,/g, "")
     );
-    setDeliveryCost(
-      checkoutToken.shipping_methods[0].price.formatted_with_symbol.split(
-        "k"
-      )[1]
-    );
-  }, [checkoutToken]);
+
+    if (shippingData.shippingOption) {
+      const selectedShippingOption = checkoutToken.shipping_methods.find(
+        (method) => method.id === shippingData.shippingOption
+      );
+
+      if (selectedShippingOption) {
+        const formattedDeliveryCost =
+          selectedShippingOption.price.formatted_with_symbol
+            .split("k")[1]
+            .replace(/,/g, "");
+
+        setDeliveryCost(formattedDeliveryCost);
+      }
+    }
+  }, [checkoutToken, shippingData.shippingOption]);
 
   useEffect(() => {
     setSum(parseInt(productPrice, 10) + parseInt(deliveryCost, 10));
@@ -44,9 +54,7 @@ const Review = ({ checkoutToken }) => {
 
         <ListItem style={{ padding: "10px 0" }}>
           <ListItemText secondary="Delivery Cost" />
-          <Typography variant="body2">
-            {checkoutToken.shipping_methods[0].price.formatted_with_symbol}
-          </Typography>
+          <Typography variant="body2">Tk{deliveryCost}</Typography>
         </ListItem>
 
         <ListItem style={{ padding: "0px 0px" }}>

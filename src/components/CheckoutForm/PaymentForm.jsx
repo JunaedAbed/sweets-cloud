@@ -52,9 +52,9 @@ const PaymentForm = ({
 
   return (
     <>
-      <Review checkoutToken={checkoutToken} />
+      <Review checkoutToken={checkoutToken} shippingData={shippingData} />
       <Divider />
-      <Discount checkoutToken={checkoutToken} />
+      <Discount checkoutToken={checkoutToken} shippingData={shippingData} />
       <Divider />
       <Typography variant="h6" gutterBottom style={{ margin: "20px 0" }}>
         Payment Method

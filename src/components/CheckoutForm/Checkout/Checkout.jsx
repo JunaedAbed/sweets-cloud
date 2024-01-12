@@ -28,6 +28,7 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
   const [loading, setLoading] = useState(true);
 
   const classes = useStyles();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const generateToken = async () => {
@@ -39,18 +40,20 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
         setLoading(false);
         setCheckoutToken(token);
       } catch (error) {
-        useNavigate.pushState("/");
+        navigate("/");
       }
     };
 
     generateToken();
-  }, [cart]);
+  }, [cart, navigate]);
 
   const nextStep = () => setActiveStep((prevActiveStep) => prevActiveStep + 1);
   const backStep = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
 
   const next = (data) => {
     setShippingData(data);
+
+    console.log(data);
 
     nextStep();
   };
