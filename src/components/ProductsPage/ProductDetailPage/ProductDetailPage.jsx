@@ -18,14 +18,12 @@ const ProductDetailPage = ({ onAddtoCart }) => {
   const [options, setOptions] = useState([]);
   const [option, setOption] = useState("Select an Option");
   const [quantity, setQuantity] = useState(1);
-  const [selectedOptionPrice, setSelectedOptionPrice] = useState(null);
+  const [selectedOptionPrice, setSelectedOptionPrice] = useState("0.00");
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const product = await commerce.products.retrieve(id);
-
-        console.log(product);
 
         setProduct(product);
 
@@ -36,7 +34,7 @@ const ProductDetailPage = ({ onAddtoCart }) => {
             variantInfo.key = option.id;
             variantInfo.value = option.id;
             variantInfo.text = option.name;
-            variantInfo.price = option.price.formatted_with_symbol;
+            variantInfo.price = option.price.formatted;
 
             return variantInfo;
           });
@@ -57,12 +55,20 @@ const ProductDetailPage = ({ onAddtoCart }) => {
 
   const handleOptionChange = (e) => {
     const newSelectedOption = e.target.value;
-    setOption({ [product.variant_groups[0].id]: newSelectedOption });
-    const selectedOptionData = options.find(
-      (option) => option.value === newSelectedOption
-    );
-    if (selectedOptionData) {
-      setSelectedOptionPrice(selectedOptionData.price);
+
+    if (newSelectedOption !== "Select an Option") {
+      setOption({ [product.variant_groups[0].id]: newSelectedOption });
+
+      const selectedOptionData = options.find(
+        (option) => option.value === newSelectedOption
+      );
+
+      if (selectedOptionData) {
+        setSelectedOptionPrice(selectedOptionData.price);
+      }
+    } else {
+      setOption("Select an Option");
+      setSelectedOptionPrice("0.00");
     }
   };
 
@@ -129,7 +135,11 @@ const ProductDetailPage = ({ onAddtoCart }) => {
                     style={{ lineHeight: "1.75rem" }}
                     gutterBottom
                   >
-                    {selectedOptionPrice || product.price.formatted_with_symbol}
+                    TK{" "}
+                    {(
+                      parseFloat(selectedOptionPrice) +
+                      parseFloat(product.price.formatted)
+                    ).toFixed(2)}
                   </Typography>
                   <br />
                   <div
