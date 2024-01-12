@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { IconButton, MenuItem, Select, Typography } from "@material-ui/core";
+import {
+  IconButton,
+  MenuItem,
+  Select,
+  Typography,
+  CircularProgress,
+} from "@material-ui/core";
 
 import { useParams } from "react-router-dom";
 
@@ -19,6 +25,7 @@ const ProductDetailPage = ({ onAddtoCart }) => {
   const [option, setOption] = useState("Select an Option");
   const [quantity, setQuantity] = useState(1);
   const [selectedOptionPrice, setSelectedOptionPrice] = useState("0.00");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -69,6 +76,22 @@ const ProductDetailPage = ({ onAddtoCart }) => {
     } else {
       setOption("Select an Option");
       setSelectedOptionPrice("0.00");
+    }
+  };
+
+  const handleAddToCart = async () => {
+    setLoading(true);
+    try {
+      if (option === "Select an Option") {
+        alert("Select an option");
+        return;
+      }
+
+      await onAddtoCart(product.id, quantity, option);
+    } catch (error) {
+      console.error("Error adding item to cart:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -172,7 +195,12 @@ const ProductDetailPage = ({ onAddtoCart }) => {
                   <button
                     type="submit"
                     className="custom__button"
-                    style={{ marginTop: "2.5rem" }}
+                    style={{
+                      marginTop: "2.5rem",
+                      height: "40px",
+                      width: "150px",
+                      position: "relative",
+                    }}
                     onClick={(e) => {
                       e.preventDefault();
                       if (
@@ -183,10 +211,10 @@ const ProductDetailPage = ({ onAddtoCart }) => {
                         return;
                       }
 
-                      onAddtoCart(product.id, quantity, option);
+                      handleAddToCart();
                     }}
                   >
-                    Add To Cart
+                    {loading ? <CircularProgress size={20} /> : "Add To Cart"}
                   </button>
                 </form>
               </FormProvider>
