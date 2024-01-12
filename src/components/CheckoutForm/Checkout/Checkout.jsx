@@ -124,7 +124,7 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
     <>
       <CssBaseline />
       <div className={classes.toolbar} />
-      <main className={classes.layout}>
+      <main className={classes.layout} style={{ paddingTop: "20px" }}>
         <Paper className={classes.paper} variant="outlined">
           <Typography variant="h4" align="center">
             Checkout

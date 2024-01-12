@@ -37,10 +37,6 @@ const Navbar = ({ totalItems }) => {
         </ul>
 
         <div className="app__navbar-login">
-          <a href="/#coupon" className="p__opensans">
-            Discounts
-          </a>
-          <div />
           <a href="/cart" className="p__opensans">
             <Badge
               badgeContent={totalItems}
