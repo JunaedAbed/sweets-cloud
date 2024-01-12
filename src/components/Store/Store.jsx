@@ -1,4 +1,9 @@
-import { MenuItem, Select, Typography } from "@material-ui/core";
+import {
+  CircularProgress,
+  MenuItem,
+  Select,
+  Typography,
+} from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 
 import { SubHeading } from "..";
@@ -14,6 +19,8 @@ const Store = () => {
   const [categoryProducts, setCategoryProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [loadingCategory, setLoadingCategory] = useState(true);
 
   const EmptyCategory = () => (
     <Typography variant="subtitle1" style={{ marginBottom: "4rem" }}>
@@ -28,31 +35,43 @@ const Store = () => {
   };
 
   const handleNextButton = async () => {
-    const { data } = await commerce.products.list({
-      page: page + 1,
-      limit: 16,
-      sortBy: "name",
-    });
+    try {
+      setLoading(true);
+      const { data } = await commerce.products.list({
+        page: page + 1,
+        limit: 16,
+        sortBy: "name",
+      });
 
-    setPage(page + 1);
-    setProducts(data);
-    window.scrollTo(0, 0);
+      setPage(page + 1);
+      setProducts(data);
+      window.scrollTo(0, 0);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handlePrevButton = async () => {
-    const { data } = await commerce.products.list({
-      page: page - 1,
-      limit: 16,
-      sortBy: "name",
-    });
+    try {
+      setLoading(true);
+      const { data } = await commerce.products.list({
+        page: page - 1,
+        limit: 16,
+        sortBy: "name",
+      });
 
-    setPage(page - 1);
-    setProducts(data);
-    window.scrollTo(0, 0);
+      setPage(page - 1);
+      setProducts(data);
+      window.scrollTo(0, 0);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  useEffect(() => {
-    const fetchProducts = async () => {
+  const fetchProducts = async () => {
+    try {
+      setLoading(true);
+
       const { data, meta } = await commerce.products.list({
         limit: 16,
         sortBy: "name",
@@ -61,22 +80,31 @@ const Store = () => {
 
       setProducts(data);
       setLastPage(meta.pagination.total_pages);
-    };
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchProducts();
     fetchCategories();
   }, []);
 
   useEffect(() => {
     const fetchCategoryProducts = async () => {
-      if (category !== "All") {
-        const { data } = await commerce.products.list({
-          category_slug: [category],
-          active: 1,
-          sortBy: "name",
-        });
+      try {
+        if (category !== "All") {
+          setLoadingCategory(true);
+          const { data } = await commerce.products.list({
+            category_slug: [category],
+            active: 1,
+            sortBy: "name",
+          });
 
-        setCategoryProducts(data);
+          setCategoryProducts(data);
+        }
+      } finally {
+        setLoadingCategory(false);
       }
     };
     fetchCategoryProducts();
@@ -111,7 +139,10 @@ const Store = () => {
         </div>
 
         <div className="app__store-menu">
-          {categoryProducts ? (
+          {console.log(loading)}
+          {loading || loadingCategory ? (
+            <CircularProgress style={{ margin: "auto" }} />
+          ) : categoryProducts ? (
             <ProductsPage
               products={category === "All" ? products : categoryProducts}
             />
