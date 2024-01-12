@@ -53,14 +53,24 @@ const Footer = () => (
       <div className="app__footer-links_work">
         <h1 className="app__footer-headtext">Working Hours</h1>
         <p className="p__opensans">Saturday - Thursday: </p>
-        <p className="p__opensans">10:00 Am - 02:00 Am</p>
+        <p className="p__opensans">09:00 AM - 08:00 PM</p>
         <p className="p__opensans">Friday: </p>
         <p className="p__opensans">Closed</p>
       </div>
     </div>
 
     <div className="footer__copyright">
-      <p className="p__opensans">2022 Sweets Cloud. All Right Reserved © </p>
+      <p className="p__opensans">2024 Sweets Cloud. All Right Reserved © </p>
+      <p className="p__opensans">
+        <a
+          href="https://abed-page.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="p__opensans_small"
+        >
+          Developed by Md Junaed Abed
+        </a>
+      </p>
     </div>
   </div>
 );
