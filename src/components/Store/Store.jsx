@@ -139,7 +139,6 @@ const Store = () => {
         </div>
 
         <div className="app__store-menu">
-          {console.log(loading)}
           {loading || loadingCategory ? (
             <CircularProgress style={{ margin: "auto" }} />
           ) : categoryProducts ? (

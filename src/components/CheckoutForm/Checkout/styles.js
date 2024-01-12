@@ -49,4 +49,10 @@ export default makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
   },
+  loaderContainer: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100px",
+  },
 }));

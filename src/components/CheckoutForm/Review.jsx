@@ -24,44 +24,41 @@ const Review = ({ checkoutToken }) => {
   }, [checkoutToken, productPrice, deliveryCost]);
 
   return (
-    console.log(checkoutToken),
-    (
-      <>
-        <Typography variant="h6" gutterBottom>
-          Order Summary
-        </Typography>
-        <List disablePadding>
-          {checkoutToken.line_items.map((product) => (
-            <ListItem style={{ padding: "10px 0" }} key={product.name}>
-              <ListItemText
-                primary={product.name}
-                secondary={`${product.selected_options[0].group_name}: ${product.selected_options[0].option_name}, Quantity: ${product.quantity}`}
-              />
+    <>
+      <Typography variant="h6" gutterBottom>
+        Order Summary
+      </Typography>
+      <List disablePadding>
+        {checkoutToken.line_items.map((product) => (
+          <ListItem style={{ padding: "10px 0" }} key={product.name}>
+            <ListItemText
+              primary={product.name}
+              secondary={`${product.selected_options[0].group_name}: ${product.selected_options[0].option_name}, Quantity: ${product.quantity}`}
+            />
 
-              <Typography variant="body2">
-                {product.line_total.formatted_with_symbol}
-              </Typography>
-            </ListItem>
-          ))}
-
-          <ListItem style={{ padding: "10px 0" }}>
-            <ListItemText secondary="Delivery Cost" />
             <Typography variant="body2">
-              {checkoutToken.shipping_methods[0].price.formatted_with_symbol}
+              {product.line_total.formatted_with_symbol}
             </Typography>
           </ListItem>
+        ))}
 
-          <ListItem style={{ padding: "0px 0px" }}>
-            <ListItemText primary="Total" />
-            <Typography variant="subtitle1" style={{ fontWeight: 700 }}>
-              {`Tk${sum.toLocaleString(undefined, {
-                maximumFractionDigits: 2,
-              })}.00`}
-            </Typography>
-          </ListItem>
-        </List>
-      </>
-    )
+        <ListItem style={{ padding: "10px 0" }}>
+          <ListItemText secondary="Delivery Cost" />
+          <Typography variant="body2">
+            {checkoutToken.shipping_methods[0].price.formatted_with_symbol}
+          </Typography>
+        </ListItem>
+
+        <ListItem style={{ padding: "0px 0px" }}>
+          <ListItemText primary="Total" />
+          <Typography variant="subtitle1" style={{ fontWeight: 700 }}>
+            {`Tk${sum.toLocaleString(undefined, {
+              maximumFractionDigits: 2,
+            })}.00`}
+          </Typography>
+        </ListItem>
+      </List>
+    </>
   );
 };
 

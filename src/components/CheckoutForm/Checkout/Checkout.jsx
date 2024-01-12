@@ -25,6 +25,7 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
   const [activeStep, setActiveStep] = useState(0);
   const [shippingData, setShippingData] = useState({});
   const [isFinished, setIsFinished] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const classes = useStyles();
 
@@ -35,6 +36,7 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
           type: "cart",
         });
 
+        setLoading(false);
         setCheckoutToken(token);
       } catch (error) {
         useNavigate.pushState("/");
@@ -135,7 +137,11 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
             ))}
           </Stepper>
 
-          {activeStep === steps.length ? (
+          {loading ? (
+            <div className={classes.loaderContainer}>
+              <CircularProgress style={{ margin: "auto" }} />
+            </div>
+          ) : activeStep === steps.length ? (
             <Confirmation />
           ) : (
             checkoutToken && <Form />

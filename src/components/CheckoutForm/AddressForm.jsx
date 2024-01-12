@@ -21,6 +21,7 @@ const AddressForm = ({ checkoutToken, next }) => {
   const [shippingDivision, setShippingDivision] = useState("");
   const [shippingOptions, setShippingOptions] = useState([]);
   const [shippingOption, setShippingOption] = useState("");
+  const [isShippingOptionsLoaded, setIsShippingOptionsLoaded] = useState(false);
 
   const methods = useForm();
 
@@ -84,6 +85,7 @@ const AddressForm = ({ checkoutToken, next }) => {
 
         setShippingOptions(options);
         setShippingOption(options[0].id);
+        setIsShippingOptionsLoaded(true);
       };
       fetchShippingOptions(checkoutToken.id, shippingCountry, shippingDivision);
     }
@@ -166,7 +168,12 @@ const AddressForm = ({ checkoutToken, next }) => {
             <Button component={Link} to="/cart" variant="outlined">
               Back to Cart
             </Button>
-            <Button type="submit" variant="contained" color="primary">
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={!isShippingOptionsLoaded}
+            >
               Next
             </Button>
           </div>
