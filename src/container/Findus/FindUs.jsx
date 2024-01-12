@@ -9,7 +9,7 @@ const FindUs = () => (
   <div className="app__bg app__wrapper section__padding" id="contact">
     <div className="app__wrapper_info">
       <SubHeading title="Contact" />
-      <h1 className="headtext__cormorant" style={{ marginBottom: "3rem" }}>
+      <h1 className="headtext__cormorant" style={{ marginBottom: "1rem" }}>
         Find Us
       </h1>
       <div className="app__wrapper-content">
@@ -19,6 +19,15 @@ const FindUs = () => (
           <br /> Dhanmondi, Dhaka
           <br />
           (Inside Shwapno Super Shop)
+        </p> */}
+        {/* <p>
+          <div className="app__findus_img">
+            <img
+              src={images.ig_page}
+              alt="findus_img"
+              style={{ width: "50%", height: "auto" }}
+            />
+          </div>
         </p> */}
         <p
           className="p__cormorant"
@@ -39,7 +48,11 @@ const FindUs = () => (
     </div>
 
     <div className="app__findus_img">
-      <img src={images.sweets} alt="findus_img" />
+      <img
+        src={images.fb_page}
+        alt="findus_img"
+        style={{ width: "70%", height: "auto" }}
+      />
     </div>
   </div>
 );

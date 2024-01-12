@@ -23,6 +23,8 @@ import gericht from "../assets/gericht.png";
 import sweets from "../assets/sweets-cloud.png";
 import chocolate from "../assets/chocolate.png";
 import offer01 from "../assets/offer01.png";
+import ig_page from "../assets/instagram_page.png";
+import fb_page from "../assets/facebook_page.png";
 
 const images = {
   bg,
@@ -50,6 +52,8 @@ const images = {
   sweets,
   chocolate,
   offer01,
+  ig_page,
+  fb_page,
 };
 
 export default images;
