@@ -5,7 +5,7 @@ import {
   Grid,
   Typography,
 } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import CartItem from "./CartItem/CartItem";
 
@@ -18,8 +18,18 @@ const Cart = ({
   handleEmptyCart,
 }) => {
   const classes = useStyle();
+  const [loading, setLoading] = useState(false);
 
-  console.log(cart);
+  const handleCartDiscard = async () => {
+    setLoading(true);
+    try {
+      await handleEmptyCart();
+    } catch (error) {
+      console.error("Error discarding the cart:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const EmptyCart = () => (
     <Typography variant="subtitle1" style={{ marginBottom: "4rem" }}>
@@ -62,9 +72,9 @@ const Cart = ({
             type="button"
             variant="contained"
             color="secondary"
-            onClick={handleEmptyCart}
+            onClick={handleCartDiscard}
           >
-            Empty
+            {loading ? <CircularProgress size={20} /> : "Empty"}
           </Button>
           <Button
             component={Link}
