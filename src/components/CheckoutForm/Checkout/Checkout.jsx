@@ -36,11 +36,10 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
         const token = await commerce.checkout.generateToken(cart.id, {
           type: "cart",
         });
-
         setLoading(false);
         setCheckoutToken(token);
       } catch (error) {
-        navigate("/");
+        // navigate("/");
       }
     };
 
@@ -53,7 +52,7 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
   const next = (data) => {
     setShippingData(data);
 
-    console.log(data);
+    // console.log(data);
 
     nextStep();
   };
@@ -75,6 +74,11 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
           <Divider className={classes.divider} />
           <Typography variant="subtitle2">
             Order ref: {order.customer_reference}
+          </Typography>{" "}
+          <Divider className={classes.divider} />
+          <Typography variant="subtitle2">
+            We make the sweets after getting your order so that you can taste
+            the freshness. We will deliver freshly made sweets within 2 days ❤️
           </Typography>
         </div>
         <br />
